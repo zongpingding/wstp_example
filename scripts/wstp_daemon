@@ -1,0 +1,9 @@
+#!/usr/bin/env zsh
+
+
+# check if wstp_daemon runs successfully
+if lsof -i :5000 >/dev/null 2>&1 && pgrep WolframKernel >/dev/null 2>&1; then
+    echo "wstp daemon is already running ..."
+else
+    wolfram -script "$HOME/Dependency/scripts/server.wls" > /dev/null 2>&1 &!
+fi

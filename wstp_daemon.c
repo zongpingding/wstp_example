@@ -5,8 +5,8 @@
 
 void parse_expr(WSLINK link, const char* expr) {
     WSPutFunction(link, "EvaluatePacket", 1);
-    WSPutFunction(link, "ToString", 1);
-    WSPutFunction(link, "TeXForm", 1);
+    /* WSPutFunction(link, "ToString", 1); */
+    /* WSPutFunction(link, "TeXForm", 1); */
     WSPutFunction(link, "ToExpression", 1);
     WSPutString(link, expr);
     WSPutSymbol(link, "InputForm");
@@ -90,7 +90,7 @@ int main(int argc, char* argv[]) {
         collapse_backslash(result);
         WSReleaseString(link, result);
     } else {
-        printf("Failed to get string\n");
+        printf("Failed to get result(string)\n");
     }
 
     /* Disconnet */
