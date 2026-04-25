@@ -2,20 +2,14 @@
 #include <stdio.h>
 #include <string.h>
 
-enum WSTP_TYPE {
-    NEW = 1,
-    OLD = 2,
-    NET = 3
-};
 
-void eval_string(WSLINK link, const char* expr) {
+void parse_expr(WSLINK link, const char* expr) {
     WSPutFunction(link, "EvaluatePacket", 1);
     WSPutFunction(link, "ToString", 1);
     WSPutFunction(link, "TeXForm", 1);
     WSPutFunction(link, "ToExpression", 1);
     WSPutString(link, expr);
     WSPutSymbol(link, "InputForm");
-    WSEndPacket(link);
 }
 
 void collapse_backslash(const char *s) {
@@ -36,6 +30,12 @@ int main(int argc, char* argv[]) {
     WSLINK link;
     int err;
 
+    enum WSTP_TYPE {
+        NEW = 1,
+        OLD = 2,
+        NET = 3
+    };
+
     /* Init Env */
     env = WSInitialize((WSEnvironmentParameter)0);
     if (env == (WSENV)0) {
@@ -44,10 +44,10 @@ int main(int argc, char* argv[]) {
     }
 
     /* Launch(Connect to) Wolfram Kernel */
-    enum WSTP_TYPE wstp_type = NET; 
+    enum WSTP_TYPE wstp_type = NET;
     switch (wstp_type) {
         case NEW:
-            /* launch a new kernal */
+            /* launch a new kernel */
             link = WSOpenString(env, "-linkmode launch -linkname 'wolfram -wstp'", &err);
             break;
         case OLD:
@@ -66,21 +66,22 @@ int main(int argc, char* argv[]) {
         printf("WSOpenString failed. Is the Wolfram Server running?\n");
         return 1;
     }
-    /* NOTE: discard inital pkg only when launch new Kernel */
+
+    /* Send Package */
+    // NOTE: discard initial pkg only when launch new Kernel
     if (wstp_type == NEW) {
         WSNextPacket(link);
         WSNewPacket(link);
     }
-
-    // (Expr)Argument
+    // parse expr
     const char* expr = "Integrate[1/(x^5+1), x]";
     if (argc > 1) {
         expr = argv[1];
     }
-    eval_string(link, expr);
+    parse_expr(link, expr);
+    WSEndPacket(link);
 
-
-    // wait for response
+    /* Wait for response */
     while (WSNextPacket(link) != RETURNPKT) {
         WSNewPacket(link);
     }
@@ -92,7 +93,7 @@ int main(int argc, char* argv[]) {
         printf("Failed to get string\n");
     }
 
-    // disconnet
+    /* Disconnet */
     WSClose(link);
     WSDeinitialize(env);
 

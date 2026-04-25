@@ -11,7 +11,11 @@ Here are some notes:
 Build it with command:
 
 ``` shell
+# build
 ./run.sh wstp_repl.c
+
+# after building, simply run
+./wstp_repl
 ```
 
 
@@ -25,14 +29,14 @@ wolfram -script server.wls
 # build client
 ./run.sh wstp_daemon.c
 
-# after building, you can do
+# after building, simply run 
 ./wstp_daemon "2^64"
 ./wstp_daemon "Integrate[Sin[x], {x, 0, 2/3*Pi}]"
 ```
 
 
-## REF
-Some materials about WSTP(Wolfram Symbolic Transfer Protocol):
+## Reference
+Some materials about WSTP:
 
 * [WSTP and External Program Communication Overview](https://reference.wolfram.com/language/tutorial/WSTPAndExternalProgramCommunicationOverview.html)
 * [Using WSTP to Communicate between Wolfram System Sessions](https://reference.wolfram.com/language/tutorial/UsingWSTPToCommunicateBetweenWolframSystemSessions.html)

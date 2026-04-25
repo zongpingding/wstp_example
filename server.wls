@@ -1,4 +1,4 @@
-(* server.wl *)
+(* server.wls *)
 (* client is written in C *)
 
 
