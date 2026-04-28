@@ -5,11 +5,8 @@
 
 void parse_expr(WSLINK link, const char* expr) {
     WSPutFunction(link, "EvaluatePacket", 1);
-    /* WSPutFunction(link, "ToString", 1); */
-    /* WSPutFunction(link, "TeXForm", 1); */
     WSPutFunction(link, "ToExpression", 1);
     WSPutString(link, expr);
-    WSPutSymbol(link, "InputForm");
 }
 
 void collapse_backslash(const char *s) {
@@ -74,7 +71,7 @@ int main(int argc, char* argv[]) {
         WSNewPacket(link);
     }
     // parse expr
-    const char* expr = "Integrate[1/(x^5+1), x]";
+    const char* expr = "1+1";
     if (argc > 1) {
         expr = argv[1];
     }

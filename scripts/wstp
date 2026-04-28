@@ -1,12 +1,10 @@
 #!/usr/bin/env zsh
 
-
-# check if wstp_daemon runs successfully
 if lsof -i :5000 >/dev/null 2>&1 && pgrep WolframKernel >/dev/null 2>&1; then
     if [ -z "$1" ]; then
-	echo "ERROR: need 1 argument, current is empty !"
+        echo "ERROR: need 1 argument, current is empty !"
     else
-	wstp_bin "$1"
+        wstp_client "$1"
     fi
 else
     echo "ERROR: wstp daemon is NOT running ..."

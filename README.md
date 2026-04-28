@@ -24,14 +24,15 @@ Commands list as follows, take `wstp_type=NET` as example:
 
 ```shell
 # launch server(wolfram kernel)
-wolfram -script server.wls
+wolfram -script wstp_server.wls
 
-# build client
-./run.sh wstp_daemon.c
+# build & run client
+./run.sh wstp_client.c
 
 # after building, simply run 
-./wstp_daemon "2^64"
-./wstp_daemon "Integrate[Sin[x], {x, 0, 2/3*Pi}]"
+./wstp_client "2^64"
+./wstp_client '<< "example.wls"'
+./wstp_client "Integrate[Sin[x], {x, 0, 2/3*Pi}]//TeXForm//ToString"
 ```
 
 

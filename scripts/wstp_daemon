@@ -1,9 +1,27 @@
 #!/usr/bin/env zsh
 
-
-# check if wstp_daemon runs successfully
 if lsof -i :5000 >/dev/null 2>&1 && pgrep WolframKernel >/dev/null 2>&1; then
+    if [[ "$1" == "kill" ]]; then
+        kill -9 "$(lsof -t -i:5000)"
+        echo "INFO: Wolframkernel has been killed ..."
+        exit 0
+    else
+        if [ -z "$1" ]; then
+        else
+            echo "ERROR: wrong command '$1', use 'wstp_daemon kill' to kill it."
+            exit 1
+        fi
+    fi
     echo "wstp daemon is already running ..."
 else
-    wolfram -script "$HOME/Dependency/scripts/server.wls" > /dev/null 2>&1 &!
+    if [[ "$1" == "start" || -z "$1" ]]; then
+        wolfram -script "$HOME/Dependency/scripts/wstp_server.wls" > /dev/null 2>&1 &!
+        echo "INFO: Wolframkernel is listening port 5000 ..."
+    else
+        if [ -z "$1" ]; then
+        else
+            echo "ERROR: wrong command '$1', use 'wstp_daemon [start]' to launch Wolframkernel."
+            exit 1
+        fi
+    fi
 fi
