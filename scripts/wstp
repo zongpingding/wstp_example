@@ -3,6 +3,7 @@
 if lsof -i :5000 >/dev/null 2>&1 && pgrep WolframKernel >/dev/null 2>&1; then
     if [ -z "$1" ]; then
         echo "ERROR: need 1 argument, current is empty !"
+        exit 1
     else
         wstp_client "$1"
     fi

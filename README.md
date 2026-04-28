@@ -3,7 +3,7 @@ Here are some notes:
 
 1. For Arch user, install `mathematica` or `mathematica-light`.
 2. Check if your shell is `zshell`.
-2. Change the `WOLFRAM` variable in `run.sh`.
+2. Change the `WOLFRAM` and `WSTP_PATH` variable in `run.sh`.
 
 
 ## Build

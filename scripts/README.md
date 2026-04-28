@@ -5,9 +5,6 @@ Copy `wstp_server.wls` to a location of your choice, and change it in `wstp_daem
 wstp_daemon
 ```
 
-> [!CAUTION]
-> If you want to use `relative path` in wolfram `Get` function etc, please launch `wstp_daemon` in this working directory. Otherwise, you MUST pass the `full path`.
-
 
 ## Examples
 Test script as follows:

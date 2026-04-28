@@ -1,12 +1,29 @@
 #include "wstp.h"
 #include <stdio.h>
 #include <string.h>
+#include <unistd.h>
 
 
 void parse_expr(WSLINK link, const char* expr) {
     WSPutFunction(link, "EvaluatePacket", 1);
     WSPutFunction(link, "ToExpression", 1);
     WSPutString(link, expr);
+}
+
+void sync_directory_to_server(WSLINK link) {
+    char cwd[1024];
+    if (getcwd(cwd, sizeof(cwd)) != NULL) {
+        WSPutFunction(link, "EvaluatePacket", 1);
+        WSPutFunction(link, "SetDirectory", 1);
+        WSPutString(link, cwd);
+        WSEndPacket(link);
+        while (WSNextPacket(link) != RETURNPKT) {
+            WSNewPacket(link);
+        }
+        WSNewPacket(link);
+    } else {
+        printf("Warning: Could not get current working directory.\n");
+    }
 }
 
 void collapse_backslash(const char *s) {
@@ -20,7 +37,6 @@ void collapse_backslash(const char *s) {
     }
     printf("\n");
 }
-
 
 int main(int argc, char* argv[]) {
     WSENV env;
@@ -70,6 +86,10 @@ int main(int argc, char* argv[]) {
         WSNextPacket(link);
         WSNewPacket(link);
     }
+
+    // sycn working directory
+    sync_directory_to_server(link);
+
     // parse expr
     const char* expr = "1+1";
     if (argc > 1) {
