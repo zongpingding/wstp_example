@@ -1,4 +1,4 @@
-(* server.wls *)
+(* wstp_server.wls *)
 (* client is written in C *)
 
 
