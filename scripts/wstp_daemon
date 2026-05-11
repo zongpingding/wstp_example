@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 
 if lsof -i :5000 >/dev/null 2>&1 && pgrep WolframKernel >/dev/null 2>&1; then
-    echo "INFO: wstp daemon is already running ..."
+    echo "INFO: wstp daemon is running now ..."
     case "$1" in
         "")
             exit 1
@@ -11,6 +11,7 @@ if lsof -i :5000 >/dev/null 2>&1 && pgrep WolframKernel >/dev/null 2>&1; then
             ;;
         "kill")
             kill -9 "$(lsof -t -i:5000)"
+            echo "INFO: Wolframkernel has been killed."
             exit 0
             ;;
         *)
