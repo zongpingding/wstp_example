@@ -31,7 +31,7 @@ tikzlikefigMeta = Graphics[{
     VertexColors -> {Red, Green, Blue}],
 
   (* Plot Intersections *)
-  {Blue, AbsolutePointSize[6], coors},
+  {Blue, AbsolutePointSize[4], coors},
 
   (* add text *)
   Text["Sample Text", {5, 6}, FormatType->StandardForm],
@@ -39,7 +39,7 @@ tikzlikefigMeta = Graphics[{
     Background->LightRed,
     FormatType->TraditionalForm],
   (* MaTeX[]//Head --> Graphics *)
-  Inset[MaTeX["\\fbox{$a^2=c^2$}"], {3, 3}, {Left, Top}]
+  Inset[MaTeX["\\fbox{$E=mc^2$}"], {3, 3}, {Left, Top}]
 }
   (* Axes -> True, *)
   (* AxesStyle -> Arrowheads[0.02] *)

@@ -36,6 +36,13 @@ wolfram -script wstp_server.wls
 ```
 
 
+## Usage
+This repo provides some scripts(config) to make `wstp_client` and `wstp_server` work with other programs:
+
+* Zsh(Bash): check [README](scripts/README.md)
+* Emacs: check [README](emacs_integration/README.md)
+
+
 ## Reference
 Some materials about WSTP:
 

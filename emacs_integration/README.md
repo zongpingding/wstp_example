@@ -44,7 +44,10 @@ I use [watchexec](https://github.com/watchexec/watchexec), run command below:
 
 ``` shell
 cd example
-watchexec 'wstp "<< \"tikz_use_wolfram_2dGraphics.wls\""'
+
+watchexec 'wstp "<< "emacs_example.wls'
+# or
+watchexec -p -w emacs_example.wls -- 'wstp "<< "emacs_example.wls'
 ```
 
 
