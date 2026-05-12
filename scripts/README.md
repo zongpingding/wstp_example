@@ -23,15 +23,15 @@ Basic usage:
 $ wstp 'Print["Hello wstp"]'
 Null
 
+# return (value) type error
+$ wstp 'Integrate[Sin[x]/x^3, x]'
+Failed to get result(string)
 
 # common usage 
 $ wstp "1+1"
 2
-$ wstp 'Integrate[Sin[x]/x^3, x]'
-Failed to get result(string)
 $ wstp 'Integrate[x^2+1/(x^3-1), x]//TeXForm//ToString'
 \frac{x^3}{3}-\frac{1}{6} \log \left(x^2+x+1\right)+\frac{1}{3} \log (1-x)-\frac{\tan ^{-1}\left(\frac{2 x+1}{\sqrt{3}}\right)}{\sqrt{3}}
-
 
 # run script
 $ wstp '<< "wstp_script_test.wls"'

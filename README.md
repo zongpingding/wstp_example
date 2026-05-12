@@ -35,6 +35,14 @@ wolfram -script wstp_server.wls
 ./wstp_client "Integrate[Sin[x], {x, 0, 2/3*Pi}]//TeXForm//ToString"
 ```
 
+File `example.wls` contains just 3 lines:
+
+```wolfram
+(* This is file 'example.wls' *)
+TeXResult=ToString[TeXForm[LaplaceTransform[t^4 Sin[3*t], t, s]]];
+Export["output.txt",TeXResult]
+```
+
 
 ## Usage
 This repo provides some scripts(config) to make `wstp_client` and `wstp_server` work with other programs:
