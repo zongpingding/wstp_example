@@ -1,5 +1,7 @@
 #!/usr/bin/env zsh
 
+wstp_server_path="$HOME/Dependency/wolfram/wstp/wstp_server.wls"
+
 if lsof -i :5000 >/dev/null 2>&1 && pgrep WolframKernel >/dev/null 2>&1; then
     echo "INFO: wstp daemon is running now ..."
     case "$1" in
@@ -22,7 +24,7 @@ if lsof -i :5000 >/dev/null 2>&1 && pgrep WolframKernel >/dev/null 2>&1; then
 else
     if [[ "$1" == "start" || -z "$1" ]]; then
         echo "INFO: launching Wolframkernel ..."
-        wolfram -script "$HOME/Dependency/scripts/wstp_server.wls" > /dev/null 2>&1 &!
+        wolfram -script "$wstp_server_path" > /dev/null 2>&1 &!
         echo "INFO: Wolframkernel is listening for port 5000 ..."
         exit 0
     else
