@@ -33,7 +33,7 @@ wolfram -script wstp_server.wls
 ./wstp_client "2^64"
 ./wstp_client 'num1=2^64; Print["Hello From wstp client"]; num1'
 ./wstp_client '<< "example.wls"'
-./wstp 'Integrate[Sin[x]/x^3, x]'
+./wstp_client 'Integrate[Sin[x]/x^3, x]'
 ./wstp_client "Integrate[Sin[x], {x, 0, 2/3*Pi}]//TeXForm//ToString"
 ```
 
