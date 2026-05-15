@@ -19,19 +19,32 @@ Export["output.txt",TeXResult]
 Basic usage:
 
 ```shell
-# no return value
+# support 'Print' & variable print
 $ wstp 'Print["Hello wstp"]'
-Null
+Hello wstp
+$ wstp 'num1=2^64; Print["Hello From wstp client"]; num1' 
+Hello From wstp client
+18446744073709551616
 
-# return (value) type error
+
+# catch runtime error
+$ wstp 'Sin[]'
+Sin::argx: Sin called with 0 arguments; 1 argument is expected.$Failed
+
+
+# simple text format
 $ wstp 'Integrate[Sin[x]/x^3, x]'
-Failed to get result(string)
+  1  Cos[x]   Sin[x]   SinIntegral[x]
+-(-) ------ - ------ - --------------
+  2    x          2          2
+               2 x
 
 # common usage 
 $ wstp "1+1"
 2
 $ wstp 'Integrate[x^2+1/(x^3-1), x]//TeXForm//ToString'
 \frac{x^3}{3}-\frac{1}{6} \log \left(x^2+x+1\right)+\frac{1}{3} \log (1-x)-\frac{\tan ^{-1}\left(\frac{2 x+1}{\sqrt{3}}\right)}{\sqrt{3}}
+
 
 # run script
 $ wstp '<< "wstp_script_test.wls"'

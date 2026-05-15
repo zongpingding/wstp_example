@@ -131,11 +131,16 @@ See `run-hooks'."
 )
 ;; supporess company error messages in minibuffer
 ;; FIXME: does not work
-;; (defun make-silent (func &rest args)
-;;   (cl-letf (((symbol-function 'message)
-;;               (lambda (&rest args) nil)))
-;;      (apply func args)))
-;;  (advice-add 'company-mode :around #'make-silent)
+;; (defun suppress-messages (old-fun &rest args)
+;;   (cl-flet ((silence (&rest args1) (ignore)))
+;;     (advice-add 'message :around #'silence)
+;;     (unwind-protect
+;;       (apply old-fun args)
+;;       (advice-remove 'message #'silence))
+;;   )
+;; )
+;; (advice-add 'company-call-backend-raw :around #'suppress-messages)
+
 
 ;; LSP for wolfram language - 'eglot' & 'WolframKernel'
 (with-eval-after-load 'eglot

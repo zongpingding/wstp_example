@@ -28,7 +28,7 @@ void wstp_sync_servercwd(WSLINK link) {
     }
 }
 
-// WSTP will translate '\n' to '\012'
+// NOTE: WSTP will translate '\n' to '\012'
 void wstp_print_str(const char *s, int is_text_pkt) {
     for (int i = 0; s[i] != '\0'; i++) {
         if (s[i] == '\\' && s[i+1] == '0' && s[i+2] == '1' && s[i+3] == '2') {

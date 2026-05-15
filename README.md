@@ -19,7 +19,7 @@ Build it with command:
 ```
 
 
-### wolfram daemon
+### wolfram server & client
 Commands list as follows, take `wstp_type=NET` as example:
 
 ```shell
@@ -31,7 +31,9 @@ wolfram -script wstp_server.wls
 
 # after building, simply run 
 ./wstp_client "2^64"
+./wstp_client 'num1=2^64; Print["Hello From wstp client"]; num1'
 ./wstp_client '<< "example.wls"'
+./wstp 'Integrate[Sin[x]/x^3, x]'
 ./wstp_client "Integrate[Sin[x], {x, 0, 2/3*Pi}]//TeXForm//ToString"
 ```
 
@@ -42,6 +44,23 @@ File `example.wls` contains just 3 lines:
 TeXResult=ToString[TeXForm[LaplaceTransform[t^4 Sin[3*t], t, s]]];
 Export["output.txt",TeXResult]
 ```
+
+> WARN: `wstp` will only print the last experssion that does not followed by a semicolon in `wstp '<< "<file>"'` syntax.
+
+
+### image support(experiment)
+Currently, `wstp_client` only has a limited support for image generating(export), check [wstp_client_img.c](experiment/wstp_client_img.c) for details.
+
+A simple example:
+
+``` shell
+./wstp_client -i "Plot[Sin[x], {x, 0, 2*Pi}]"
+./wstp_client -i "Plot[Sin[x], {x, 0, 2*Pi}]" -o 'test.png'
+```
+
+In the first case, you'll see a figure named `output.png` appears in current directory.
+
+> WARN: do NOT support exporting pictures in vector format, such as `PDF`, `SVG` etc.
 
 
 ## Usage
@@ -57,3 +76,6 @@ Some materials about WSTP:
 * [WSTP and External Program Communication Overview](https://reference.wolfram.com/language/tutorial/WSTPAndExternalProgramCommunicationOverview.html)
 * [Using WSTP to Communicate between Wolfram System Sessions](https://reference.wolfram.com/language/tutorial/UsingWSTPToCommunicateBetweenWolframSystemSessions.html)
 * [Running the Wolfram System from within an External Program](https://reference.wolfram.com/language/tutorial/RunningTheWolframSystemFromWithinAnExternalProgram.html)
+* [WSTP Packets](https://reference.wolfram.com/language/guide/WSTPPackets.html)
+
+Deeply appreciate the innovative tools provided by [Wolfram Research](https://www.wolfram.com/).
